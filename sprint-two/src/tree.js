@@ -1,27 +1,47 @@
-var Tree = function(value) {
-  var newTree = {};
-  newTree.value = value;
+var Tree = function (value) {
+  var newTree = {}
+  newTree.value = value
 
   // your code here
-  newTree.children = null;  // fix me
+  extend(newTree, treeMethods)
+  newTree.children = [] // fix me
+  return newTree
+}
 
-  return newTree;
-};
+var extend = function (to, from) {
+  for (var key in from) {
+    to[key] = from[key]
+  }
+}
+var treeMethods = {}
 
-var treeMethods = {};
+treeMethods.addChild = function (value) {
+  this.children.push(Tree(value))
+}
 
-treeMethods.addChild = function(value) {
-};
+treeMethods.contains = function (target) {
+  var res = false
+  var find = function (node) {
+    if (node.children.value === target) {
+      res = !res
+    } else {
+      for (var i = 0; i < node.children.length; i++) {
+        if (node.children[i].value === target) {
+          res = !res
+        }
+        find(node.children[i])
+      }
+    }
+  }
 
-treeMethods.contains = function(target) {
-};
-
-
+  find(this)
+  return res
+}
 
 /*
  * Complexity: What is the time complexity of the above functions?
  */
 
-if ( typeof module === "object" && typeof module.exports === "object" ) {
-  module.exports = Tree;
+if (typeof module === 'object' && typeof module.exports === 'object') {
+  module.exports = Tree
 }

@@ -3,6 +3,7 @@ var Stack = function () {
   // but try not not reference your old code in writing the new style.
   var someInstance = {}
   someInstance.count = 0
+  someInstance.storage = {}
 
   extend(someInstance, stackMethods)
   return someInstance
@@ -13,19 +14,18 @@ var extend = function (to, from) {
   }
 }
 
-var storage = {}
 var stackMethods = {}
 
 stackMethods.push = function (value) {
-  storage[this.count] = value
+  this.storage[this.count] = value
   this.count++
 }
 
 stackMethods.pop = function () {
   if (this.count > 0) {
     this.count--
-    var lastCount = storage[this.count]
-    delete storage[this.count]
+    var lastCount = this.storage[this.count]
+    delete this.storage[this.count]
   }
   return lastCount
 }

@@ -4,25 +4,25 @@ var Stack = function () {
 
   var someInstance = Object.create(stackMethods)
   someInstance.count = 0
+  someInstance.storage = {}
 
   return someInstance
 }
 
 // Object.create(Object.prototype)
 
-var storage = {}
 var stackMethods = {}
 
 stackMethods.push = function (value) {
-  storage[this.count] = value
+  this.storage[this.count] = value
   this.count++
 }
 
 stackMethods.pop = function () {
   if (this.count > 0) {
     this.count--
-    var lastCount = storage[this.count]
-    delete storage[this.count]
+    var lastCount = this.storage[this.count]
+    delete this.storage[this.count]
   }
   return lastCount
 }

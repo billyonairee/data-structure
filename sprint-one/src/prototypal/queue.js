@@ -7,17 +7,17 @@ var Queue = function () {
   someInstance.lastCount = 0
   someInstance.count = 0
   someInstance.int = 0
+  someInstance.storage = {}
 
   return someInstance
 }
-var storage = {}
 var queueMethods = {}
 
 queueMethods.enqueue = function (value) {
   this.count++
   this.lastCount++
 
-  storage[this.count] = value
+  this.storage[this.count] = value
 }
 
 queueMethods.dequeue = function () {
@@ -25,7 +25,7 @@ queueMethods.dequeue = function () {
     this.lastCount--
     this.int++
 
-    var intCount = storage[this.int]
+    var intCount = this.storage[this.int]
     delete intCount[this.int]
     return intCount
   }
